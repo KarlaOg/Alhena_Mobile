@@ -1,51 +1,41 @@
-class MyComponent extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        error: null,
-        isLoaded: false,
-        items: []
-      };
-    }
-  
-    componentDidMount() {
-      fetch("127.0.0.1:3000/")
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              items: result.items
-            });
-          },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          }
-        )
-    }
-  
-    render() {
-      const { error, isLoaded, items } = this.state;
-      if (error) {
-        return <div>Error: {error.message}</div>;
-      } else if (!isLoaded) {
-        return <div>Loading...</div>;
-      } else {
-        return (
-          <ul>
-            {items.map(item => (
-              <li key={item.name}>
-                {item.name} {item.price}
-              </li>
-            ))}
-          </ul>
-        );
-      }
-    }
+import React from 'react';
+import axios from 'axios';
+import { Component } from 'react';
+import { Text } from 'react-native';
+
+export class CallApi extends Component {
+  state = {
+    data: {}
   }
+
+  async getData() {
+    const response = await fetch("https://pacaud-lilian.com/serverpfe", {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }   
+        }); 
+        console.log(response)
+    const json = await response.json();
+    console.log(json);     // <-- (5) [Object, Object, Object, Object, Object]
+    return json;
+  }
+
+  componentDidMount() {
+    console.log(this.getData)
+    this.getData()
+    .then((data) => {
+      console.log(data.test)
+      this.setState({
+        dataSource:this.state.dataSource.cloneWithRows(data),
+      })  
+    });
+  }
+
+  render() {
+    return (
+      <Text>{this.data}</Text>
+    )
+  }
+}

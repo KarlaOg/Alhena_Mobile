@@ -4,6 +4,8 @@ import {View, StyleSheet, Button} from 'react-native';
 import t from 'tcomb-form-native';
 
 import {options} from '../registration/RegisterFormOptions';
+import {CallApi} from '../components/callApi';
+
 
 const User = t.struct({
     email: t.String,
@@ -22,6 +24,7 @@ export default class App extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <CallApi/>
                 <Form ref={c => this._form = c}
                       type={User} options={options}/>
                 <Button
@@ -33,7 +36,6 @@ export default class App extends Component {
         );
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
@@ -42,3 +44,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
 });
+
