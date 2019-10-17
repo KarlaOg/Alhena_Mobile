@@ -1,24 +1,18 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Button} from 'react-native';
 
-import t from 'tcomb-form-native';
 
 import {options} from '../registration/RegisterFormOptions';
 import {CallApi} from '../components/callApi';
+import t from "tcomb-form-native";
+import User from "../constants/User"
 
-
-const User = t.struct({
-    email: t.String,
-    username: t.String,
-    password: t.String,
-    terms: t.Boolean
-});
 const Form = t.form.Form;
 
 export default class App extends Component {
     handleSubmit = () => {
-        const value = this._form.getValue();
-        console.log('value: ', value);
+        const values = this._form.getValue();
+        CallApi.createUser(values)
     }
 
     render() {
