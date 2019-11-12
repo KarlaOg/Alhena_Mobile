@@ -1,6 +1,6 @@
 const ENV = {
     dev: {
-        apiUrl: "http://127.0.0.1:8000/",
+        apiUrl: "http://10.38.164.168:5555",
         amplitudeApiKey: null,
     },
     prod: {

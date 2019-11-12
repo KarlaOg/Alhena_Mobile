@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import {Component} from 'react';
-/*
-import getEnvVars from '../config/env';
-const {API_HOST} = getEnvVars();
- */
 import {Text} from 'react-native';
 import t from "tcomb-form-native";
+
+import getEnvVars from "../config/env";
+
+const {apiUrl} = getEnvVars();
+
 
 export class CallApi extends Component {
     state = {
@@ -54,20 +55,17 @@ export class CallApi extends Component {
     }
 
     static createUser(props) {
-        axios.post("http://127.0.0.1:8000/register", {
-                firstName: 'Fred',
-                lastName: 'Flintstone'
+        axios.post(`${apiUrl}/register`, {
+                "email": props.email,
+                "password": props.password,
+                "agreeTerms": props.terms
             }
         ).then(function (response) {
             console.log(response.data);
-
         })
             .catch(function (error) {
                 console.log(error);
-                console.log("test")
             });
-        console.log("hello")
-
     }
 
     static loginUser(props) {
