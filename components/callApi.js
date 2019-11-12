@@ -1,17 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 import {Component} from 'react';
-import {ServerUrl} from '../constants/ServUrl';
 import {Text} from 'react-native';
 import t from "tcomb-form-native";
+
+import getEnvVars from "../config/env";
+
+const {apiUrl} = getEnvVars();
+
 
 export class CallApi extends Component {
     state = {
         data: {}
-    }
+    };
 
     async getData() {
-
         axios.get("https://pacaud-lilian.com/serverpfe", {
             method: 'GET',
             headers: {
@@ -39,7 +42,6 @@ export class CallApi extends Component {
     componentDidMount() {
         this.getData()
             .then((data) => {
-                console.log(data.test);
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(data),
                 })
@@ -53,11 +55,22 @@ export class CallApi extends Component {
     }
 
     static createUser(props) {
-        axios.post("https://pacaud-lilian.com/serverpfe", {
-                email: props.email,
-                username: props.username,
-                password: props.password,
-                terms: props.terms,
+        axios.post(`${apiUrl}/register`, {
+                "email": props.email,
+                "password": props.password,
+                "agreeTerms": props.terms
+            }
+        ).then(function (response) {
+            console.log(response.data);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    static loginUser(props) {
+        axios.post("https://pacaud-lilian.com/serverpfe/login", {
+                props: props
             }, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
