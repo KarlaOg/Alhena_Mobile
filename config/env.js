@@ -1,6 +1,7 @@
+let localURL = '192.168.0.14:5555';
 const ENV = {
     dev: {
-        apiUrl: "http://10.38.164.168:5555",
+        apiUrl: localURL,
         amplitudeApiKey: null,
     },
     prod: {
