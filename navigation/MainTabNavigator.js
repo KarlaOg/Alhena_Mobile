@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from "../screens/LoginScreen";
+import BookingScreen from '../screens/BookingScreen';
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -84,11 +85,28 @@ LoginStack.navigationOptions = {
 
 LoginStack.path = '';
 
+const BookingStack = createStackNavigator(
+    {
+        Settings: BookingScreen,
+    },
+    config
+);
+
+BookingStack.navigationOptions = {
+    tabBarLabel: 'Réservation',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}/>
+    ),
+};
+
+BookingStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
     LinksStack,
     SettingsStack,
     LoginStack,
+    BookingStack
 });
 
 tabNavigator.path = '';

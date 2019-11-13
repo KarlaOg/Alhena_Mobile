@@ -55,6 +55,7 @@ export class CallApi extends Component {
     }
 
     static createUser(props) {
+        console.log(apiUrl)
         axios.post(`${apiUrl}/register`, {
                 "email": props.email,
                 "password": props.password,
