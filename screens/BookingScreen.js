@@ -44,7 +44,7 @@ export default class BookingScreen extends Component {
                 </View>
                 <TouchableOpacity accessible={true} accessibilityLabel="Reserve"
                                   accessibilityHint="To add a booking to a profile"
-                                  onPress={() => this.sendBooking(item.id)}
+                                  onPress={() => this.sendBooking()}
                                   style={styles.button}>
                     <Text style={styles.buttonText}>Réserver</Text>
                 </TouchableOpacity>

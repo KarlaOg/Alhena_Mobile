@@ -1,5 +1,5 @@
 node_modules
 .idea
 .expo
-/config/env.js
+config/env.js
 
