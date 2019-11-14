@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import {
     View,
     StyleSheet,
@@ -7,43 +8,96 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-import HomeScreen from "./HomeScreen";
-import Image from "react-native-web/dist/exports/Image";
+
+import getEnvVars from "../config/env";
+
+const {apiUrl} = getEnvVars();
 
 export default class BookingScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            elements: [
-                {id: 0, name: 'yo', price: 100000, country: "france", city: "paris", booking_left: 50},
-                {id: 0, name: 'yo', price: 100000, country: "france", city: "paris", booking_left: 50},
-                {id: 0, name: 'yo', price: 100000, country: "france", city: "paris", booking_left: 50},
-            ],
-        }
+            elements: [{
+                id: 1,
+                name: "Le cantlon",
+                country: "Quebec",
+                city: "Canada",
+                price: 2000,
+                booking_left: 5
+            }],
+        };
+        this.getData = this.getData.bind(this);
+        this.sendBooking = this.sendBooking.bind(this);
     }
 
     renderItem({item, index}) {
         return (
             <View style={styles.item}>
-                <View>
-                    <Text style={styles.white}>{item.name}</Text>
-                    <Text style={styles.white}>{item.country}</Text>
-                    <Text style={styles.white}>{item.city}</Text>
-                    <Text style={styles.white}>{item.price}€</Text>
-                    <Text style={styles.white}>Il reste {item.booking_left} places</Text>
+                <View accessible={true}>
+                    <Text accessible={true} style={styles.white}>{item.name}</Text>
+                    <Text accessible={true} style={styles.white}>{item.country}</Text>
+                    <Text accessible={true} style={styles.white}>{item.city}</Text>
+                    <View style={styles.horizontalBar}/>
+                    <Text accessible={true} style={[styles.white, styles.right]}>{item.price} €</Text>
+                    <Text accessible={true} style={[styles.booking_left, styles.right]}>Il
+                        reste {item.booking_left} places</Text>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity accessible={true} accessibilityLabel="Reserve"
+                                  accessibilityHint="To add a booking to a profile"
+                                  onPress={() => this.sendBooking(item.id)}
+                                  style={styles.button}>
                     <Text style={styles.buttonText}>Réserver</Text>
                 </TouchableOpacity>
             </View>
         )
     }
 
+    sendBooking() {
+        axios.post(`${apiUrl}/reserveBooking`, {
+                "id": 1,
+                "email": "a@a.com",
+            }
+        ).then(function (response) {
+            console.log(response.data);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    componentDidMount() {
+        this.getData().then((response) => {
+            this.setState({
+                elements: response
+            })
+        })
+    }
+
+    async getData() {
+        return new Promise((resolve, reject) => {
+            axios.get(`${apiUrl}/getBookings`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    resolve(response.data);
+                })
+                .catch(function (error) {
+                    console.log("error")
+                    console.log(error);
+                });
+        })
+    }
+
     render() {
         return (
             <View style={[styles.container]}>
                 <View style={styles.bar}/>
-                <Text style={styles.title}>{'réservation'.toUpperCase()}</Text>
+                <Text accessible={true} style={styles.title}>{'réservations'.toUpperCase()}</Text>
                 <FlatList
                     renderItem={this.renderItem}
                     data={this.state.elements}
@@ -56,14 +110,22 @@ let Window = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#363F46',
+        backgroundColor: 'rgb(54,63,70)',
+    },
+    right: {
+        textAlign: "right"
     },
     bar: {
         width: 2,
         height: 25,
-        top: 40,
+        top: 45,
         left: 30,
         position: "absolute",
+        backgroundColor: "#41FFE1",
+    },
+    horizontalBar: {
+        marginBottom: 10,
+        height: 1,
         backgroundColor: "#41FFE1",
     },
     title: {
@@ -71,25 +133,28 @@ const styles = StyleSheet.create({
         fontFamily: 'title-font',
         fontSize: 25,
         color: "#ffffff",
-        left: 50
+        left: 50,
+        marginBottom: 40,
     },
     listItem: {
         flex: 1,
     },
     item: {
-        backgroundColor: "#48545C",
+        padding: 30,
+        backgroundColor: "#728694",
         fontFamily: 'text-font',
         marginTop: 50,
         left: 30,
         width: Window.width - 60,
-        height: 200,
-        borderRadius: 10,
-        borderColor: 'red'
+        borderRadius: 25,
+        borderColor: 'red',
     }, button: {
-        width: 200,
-        textAlign: "center",
+        padding: 10,
+        margin: 20,
+        marginRight: 0,
+        textAlign: "right",
         backgroundColor: "#41FFE1",
-        borderRadius: 10,
+        borderRadius: 30,
         color: "#363F46"
     },
     buttonText: {
@@ -98,7 +163,16 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     white: {
-        color: "#ffffff"
+        color: "#ffffff",
+        fontFamily: 'text-font',
+        fontSize: 18,
+        marginBottom: 10,
+    },
+    booking_left: {
+        color: "#9FDAD1",
+        fontFamily: 'text-font',
+        fontSize: 14,
+        marginBottom: 10,
     }
 })
 BookingScreen.navigationOptions = {

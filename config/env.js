@@ -1,4 +1,4 @@
-let localURL = '192.168.0.14:5555';
+let localURL = 'http://10.38.163.164:5555';
 const ENV = {
     dev: {
         apiUrl: localURL,
