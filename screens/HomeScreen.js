@@ -36,4 +36,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
 });
-
+HomeScreen.navigationOptions = {
+    header: null,
+};

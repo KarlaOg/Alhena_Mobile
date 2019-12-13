@@ -26,17 +26,6 @@ export class CallApi extends Component {
                 console.log(response.data);
                 return response.data;
             });
-        /*
-              const response = await fetch("https://pacaud-lilian.com/serverpfe", {
-                  method: 'GET',
-                  headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json',
-                  },
-              });
-              const json = response.json();
-              return json;
-      */
     }
 
     componentDidMount() {
@@ -69,14 +58,9 @@ export class CallApi extends Component {
     }
 
     static loginUser(props) {
-        axios.post("https://pacaud-lilian.com/serverpfe/login", {
+        axios.post(`${apiUrl}/login`, {
                 props: props
-            }, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'application/json'
-                }
-            }
+            },
         )
             .then(function (response) {
                 console.log(response);
