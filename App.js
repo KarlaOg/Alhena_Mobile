@@ -3,8 +3,8 @@ import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState} from 'react';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
 
+console.disableYellowBox = true;
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {

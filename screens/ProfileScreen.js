@@ -8,9 +8,7 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-
 import getEnvVars from "../config/env";
-import {Booking} from "../components/Booking";
 
 const {apiUrl} = getEnvVars();
 
@@ -28,12 +26,41 @@ export default class BookingScreen extends Component {
             }],
         };
         this.getData = this.getData.bind(this);
+        this.sendBooking = this.sendBooking.bind(this);
     }
 
     renderItem({item, index}) {
+        if(item.id == 1){
         return (
-            <Booking data={item}/>
+            <View style={styles.item}>
+                <View accessible={true}>
+                    <Text accessible={true} style={styles.white}>{item.name}</Text>
+                    <Text accessible={true} style={styles.white}>{item.country}</Text>
+                    <Text accessible={true} style={styles.white}>{item.city}</Text>
+                    <View style={styles.horizontalBar}/>
+                    <Text accessible={true} style={[styles.white, styles.right]}>{item.price} €</Text>
+                </View>
+                <TouchableOpacity accessible={true} accessibilityLabel="Déréserver"
+                                  accessibilityHint="Enlever la réservation"
+                                  style={styles.button}>
+                    <Text style={styles.buttonText}>Annuler</Text>
+                </TouchableOpacity>
+            </View>
         )
+        }
+    }
+
+    sendBooking() {
+        axios.post(`${apiUrl}/reserveBooking`, {
+                "id": 1,
+                "email": "a@a.com",
+            }
+        ).then(function (response) {
+            console.log(response.data);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     componentDidMount() {
@@ -54,6 +81,7 @@ export default class BookingScreen extends Component {
                 },
             })
                 .then(function (response) {
+                    console.log(response.data);
                     resolve(response.data);
                 })
                 .catch(function (error) {
@@ -67,7 +95,7 @@ export default class BookingScreen extends Component {
         return (
             <View style={[styles.container]}>
                 <View style={styles.bar}/>
-                <Text accessible={true} style={styles.title}>{'réservations'.toUpperCase()}</Text>
+                <Text accessible={true} style={styles.title}>{'mes réservations'.toUpperCase()}</Text>
                 <FlatList
                     renderItem={this.renderItem}
                     data={this.state.elements}
