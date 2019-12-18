@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from "../screens/LoginScreen";
+import SuitcaseScreen from "../screens/SuitcaseScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -84,11 +85,36 @@ LoginStack.navigationOptions = {
 
 LoginStack.path = '';
 
+const SuitcaseStack = createStackNavigator(
+    {
+        Settings: SuitcaseScreen,
+    },
+    config
+);
+
+
+SuitcaseStack.navigationOptions = {
+    tabBarLabel: 'suitcase',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-information-circle${focused ? '' : '-outline'}`
+                    : 'md-information-circle'
+            }
+        />
+    ),
+};
+
+SuitcaseStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
     LinksStack,
     SettingsStack,
     LoginStack,
+    SuitcaseScreen
 });
 
 tabNavigator.path = '';

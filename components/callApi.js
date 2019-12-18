@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Component} from 'react';
 import {Text} from 'react-native';
 import t from "tcomb-form-native";
+import {AsyncStorage} from 'react-native';
 
 import getEnvVars from "../config/env";
 
@@ -38,7 +39,6 @@ export class CallApi extends Component {
               return json;
       */
     }
-
     componentDidMount() {
         this.getData()
             .then((data) => {
@@ -56,10 +56,10 @@ export class CallApi extends Component {
 
     static createUser(props) {
         axios.post(`${apiUrl}/register`, {
-                "email": props.email,
-                "password": props.password,
-                "agreeTerms": props.terms
-            }
+            "email": props.email,
+            "password": props.password,
+            "agreeTerms": props.terms
+        }
         ).then(function (response) {
             console.log(response.data);
         })
@@ -69,17 +69,21 @@ export class CallApi extends Component {
     }
 
     static loginUser(props) {
-        axios.post("https://pacaud-lilian.com/serverpfe/login", {
-                props: props
-            }, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'application/json'
-                }
-            }
-        )
+        axios.post(`${apiUrl}/api/login_check`, {
+                "email": props.email,
+                "password": props.password
+            })
             .then(function (response) {
-                console.log(response);
+                console.log('ok')
+                console.log(response.data.token);
+                if(response.data.token){
+                    AsyncStorage.setItem('JWT', response.data.token, () => {
+                          AsyncStorage.getItem('JWT', (err, result) => {
+                              console.log('stored token')
+                            console.log(result);
+                          });
+                      });
+                }
             })
             .catch(function (error) {
                 console.log(error);
