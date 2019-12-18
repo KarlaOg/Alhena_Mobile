@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Component} from 'react';
 import {Text} from 'react-native';
-import t from "tcomb-form-native";
+import LocalStorage from '../components/LocalStorage'
 
 import getEnvVars from "../config/env";
 
@@ -57,13 +57,29 @@ export class CallApi extends Component {
             });
     }
 
+    static checkForUser(email) {
+        axios.post(`${apiUrl}/checkRegister`, {
+                "email": email,
+            }
+        ).then(function (response) {
+            return response;
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     static loginUser(props) {
-        axios.post(`${apiUrl}/login`, {
-                props: props
-            },
-        )
+        axios.post(`${apiUrl}/api/login_check`, {
+            "email": props.email,
+            "password": props.password
+        })
             .then(function (response) {
-                console.log(response);
+                if (response.data.token) {
+                    LocalStorage.storeToken(response.data.token).then(r => {
+                        return 200
+                    })
+                }
             })
             .catch(function (error) {
                 console.log(error);

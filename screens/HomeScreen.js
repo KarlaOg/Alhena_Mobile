@@ -4,10 +4,14 @@ import {options} from '../registration/RegisterFormOptions';
 import {CallApi} from '../components/callApi';
 import t from "tcomb-form-native";
 import {RegisterUser} from "../constants/User"
+import AsyncStorage from 'react-native'
 
 const Form = t.form.Form;
 
 export default class HomeScreen extends Component {
+    constructor(props) {
+        super(props)
+    }
 
     handleSubmit = () => {
         const values = this._form.getValue();

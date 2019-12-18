@@ -6,6 +6,7 @@ import {SocialIcon} from 'react-native-elements'
 
 import {facebookEnv} from "../config/env";
 import {CallApi} from '../components/callApi'
+import LocalStorage from "./LocalStorage";
 
 export class FacebookButton extends Component {
     constructor(props) {
@@ -32,15 +33,24 @@ export class FacebookButton extends Component {
                 // Get the user's name using Facebook's Graph API
                 const response = await fetch(`https://graph.facebook.com/me?fields=id,name,email,birthday&access_token=${token}`)
                 await this.setState({user: await response.json()})
-                CallApi.createUser({
-                    "email": this.state.user.email,
-                    "password": "ddddddd",
-                    "terms": true
-                })
+                let check = await CallApi.checkForUser(this.state.user.email);
+                if (check === false) {
+                    CallApi.createUser({
+                        "email": this.state.user.email,
+                        "password": "ddddddd",
+                        "terms": true
+                    })
+                } else {
+                    await CallApi.loginUser({
+                        "email": this.state.user.email,
+                        "password": "ddddddd"
+                    });
+                }
             } else {
                 // type === 'cancel'
             }
-        } catch ({message}) {
+        } catch
+            ({message}) {
             alert(`Facebook Login Error: ${message}`);
         }
     }
@@ -59,9 +69,10 @@ export class FacebookButton extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    facebookButton: {
-        borderRadius: 0,
-    },
-});
+const
+    styles = StyleSheet.create({
+        facebookButton: {
+            borderRadius: 0,
+        },
+    });
 
