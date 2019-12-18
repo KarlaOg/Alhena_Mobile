@@ -6,6 +6,9 @@ import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 
 console.disableYellowBox = true;
 import AppNavigator from './navigation/AppNavigator';
+import {createStackNavigator} from "react-navigation";
+import ProfileScreen from "./screens/ProfileScreen";
+import TabBarIcon from "./components/TabBarIcon";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);

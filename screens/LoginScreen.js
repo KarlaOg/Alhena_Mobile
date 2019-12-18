@@ -1,30 +1,30 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Button} from 'react-native';
 
+import {options} from '../registration/RegisterFormOptions';
 import {CallApi} from '../components/callApi';
 import t from "tcomb-form-native";
 import LoginUser from "../constants/User"
+import {FacebookButton} from "../components/FacebookButton"
 
-const Form = t.form.Form;
+const Form = t.form.Form
 
 export default class LoginScreen extends Component {
     handleSubmit = () => {
         const values = this._form.getValue();
-        CallApi.createUser(values)
+        CallApi.loginUser(values)
     };
-
     render() {
         return (
             <View style={styles.container}>
-                <CallApi/>
                 <Form ref={c => this._form = c}
                       type={LoginUser}/>
                 <Button
                     title="Sign Up!"
                     onPress={this.handleSubmit}
                 />
+                <FacebookButton/>
             </View>
-
         );
     }
 }

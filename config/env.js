@@ -1,4 +1,5 @@
-let localURL = 'http://10.38.163.164:5555';
+let localURL = 'http://192.168.1.36:8080';
+export let facebookEnv = 563205851125665;
 const ENV = {
     dev: {
         apiUrl: localURL,
