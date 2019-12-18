@@ -8,10 +8,11 @@ import {RegisterUser} from "../constants/User"
 const Form = t.form.Form;
 
 export default class HomeScreen extends Component {
+
     handleSubmit = () => {
         const values = this._form.getValue();
         CallApi.createUser(values)
-    }
+    };
 
     render() {
         return (
@@ -24,7 +25,6 @@ export default class HomeScreen extends Component {
                     onPress={this.handleSubmit}
                 />
             </View>
-
         );
     }
 }

@@ -6,13 +6,12 @@ export let RegisterUser = t.struct({
     password: t.String,
     terms: t.Boolean
 });
-/*
+
 let LoginUser = t.struct({
     email: t.String,
     password: t.String,
-    terms: t.Boolean
 });
 
 export default LoginUser;
-*/
+
 
