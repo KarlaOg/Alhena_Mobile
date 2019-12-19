@@ -1,5 +1,5 @@
-#ALHENA Application
-####Welcome to the Alhena react native application
+<h1>ALHENA Application</h1>
+<h4>Welcome to the Alhena react native application</h4>
 
 Clone the directory:
 ```
@@ -21,7 +21,7 @@ If expo is ok run it:
 expo start
 ```
 
-##For a locally usage:
+<h2>For a locally usage:</h2>
 
 Don't forget to install the **Symfony API** here:
 https://github.com/hanva/Alhena_Api
@@ -37,7 +37,7 @@ And change `env.js` file with your API IP:
 ```
 **Warning** You need to have the same IP on your Symfony and your phone
 
-##For a production usage:
+<h2>For a production usage:</h2>
 Just change `env.js`:
 ```
 ...
@@ -49,4 +49,4 @@ prod: {
 ```
 
 ---
-####Alhena Application is now working !!
+<h4>Alhena Application is now working !!</h4>
