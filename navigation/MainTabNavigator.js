@@ -7,9 +7,8 @@ import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from "../screens/LoginScreen";
 import BookingScreen from '../screens/BookingScreen';
 import ProfileScreen from '../screens/ProfileScreen'
-import FormScreen from '../screens/FormScreen'
 import SuitcaseScreen from "../screens/SuitcaseScreen";
-import WebPageScreen from '../screens/WebPageScreen'; 
+import WebPageScreen from '../screens/WebPageScreen';
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -86,21 +85,6 @@ ProfileStack.navigationOptions = {
 };
 
 ProfileStack.path = '';
-const FormStack = createStackNavigator(
-    {
-        Settings: FormScreen,
-    },
-    config
-);
-
-FormStack.navigationOptions = {
-    tabBarLabel: 'Form',
-    tabBarIcon: ({focused}) => (
-        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}/>
-    ),
-};
-
-FormStack.path = '';
 
 const SuitcaseStack = createStackNavigator(
     {
@@ -139,7 +123,7 @@ WebPageStack.navigationOptions = {
     ),
 };
 
-WebPageStack.path = ''; 
+WebPageStack.path = '';
 
 
 const tabNavigator = createBottomTabNavigator({
@@ -147,9 +131,8 @@ const tabNavigator = createBottomTabNavigator({
         LoginStack,
         BookingStack,
         ProfileStack,
-        FormStack,
-        SuitcaseStack, 
-        WebPageStack, 
+        SuitcaseStack,
+        WebPageStack,
     })
 ;
 

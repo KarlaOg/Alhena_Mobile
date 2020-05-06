@@ -9,6 +9,7 @@ import AppNavigator from './navigation/AppNavigator';
 import {createStackNavigator} from "react-navigation";
 import ProfileScreen from "./screens/ProfileScreen";
 import TabBarIcon from "./components/TabBarIcon";
+import { Colors } from './assets/styles';
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -58,6 +59,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.default.primary,
     },
 });

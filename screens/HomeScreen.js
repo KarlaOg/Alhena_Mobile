@@ -5,6 +5,7 @@ import {CallApi} from '../components/callApi';
 import t from "tcomb-form-native";
 import {RegisterUser} from "../constants/User"
 import AsyncStorage from 'react-native'
+import {Colors, Spacing} from "../assets/styles";
 
 const Form = t.form.Form;
 
@@ -34,10 +35,10 @@ export default class HomeScreen extends Component {
 }
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        ...Spacing.default.containerSpacing,
         justifyContent: 'center',
-        marginTop: 50,
-        padding: 20,
-        backgroundColor: '#ffffff',
+        backgroundColor:Colors.default.primary
     },
 });
 HomeScreen.navigationOptions = {

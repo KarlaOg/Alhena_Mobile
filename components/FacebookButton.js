@@ -69,10 +69,9 @@ export class FacebookButton extends Component {
     }
 }
 
-const
-    styles = StyleSheet.create({
-        facebookButton: {
-            borderRadius: 0,
-        },
-    });
+const styles = StyleSheet.create({
+    facebookButton: {
+        borderRadius: 0,
+    },
+});
 
