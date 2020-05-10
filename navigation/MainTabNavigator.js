@@ -9,6 +9,7 @@ import BookingScreen from '../screens/BookingScreen';
 import ProfileScreen from '../screens/ProfileScreen'
 import FormScreen from '../screens/FormScreen'
 import SuitcaseScreen from "../screens/SuitcaseScreen";
+import WebPageScreen from '../screens/WebPageScreen'; 
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -108,7 +109,6 @@ const SuitcaseStack = createStackNavigator(
     config
 );
 
-
 SuitcaseStack.navigationOptions = {
     tabBarLabel: 'suitcase',
     tabBarIcon: ({focused}) => (
@@ -125,13 +125,31 @@ SuitcaseStack.navigationOptions = {
 
 SuitcaseStack.path = '';
 
+const WebPageStack = createStackNavigator(
+    {
+        Settings: WebPageScreen,
+    },
+    config
+);
+
+WebPageStack.navigationOptions = {
+    tabBarLabel: 'Paiement',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}/>
+    ),
+};
+
+WebPageStack.path = ''; 
+
+
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
         LoginStack,
         BookingStack,
         ProfileStack,
         FormStack,
-        SuitcaseStack
+        SuitcaseStack, 
+        WebPageStack, 
     })
 ;
 
