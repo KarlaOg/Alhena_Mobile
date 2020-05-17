@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Component} from 'react';
 import {Text} from 'react-native';
 import t from "tcomb-form-native";
+import LocalStorage from '../components/LocalStorage'
 import {AsyncStorage} from 'react-native';
 
 import getEnvVars from "../config/env";
@@ -12,11 +13,12 @@ const {apiUrl} = getEnvVars();
 
 export class CallApi extends Component {
     state = {
-        data: {}
+        data: {},
+        suitcaseId: 0
     };
 
     async getData() {
-        axios.get("https://pacaud-lilian.com/serverpfe", {
+        axios.get("http://192.168.1.46:8001", {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -27,17 +29,6 @@ export class CallApi extends Component {
                 console.log(response.data);
                 return response.data;
             });
-        /*
-              const response = await fetch("https://pacaud-lilian.com/serverpfe", {
-                  method: 'GET',
-                  headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json',
-                  },
-              });
-              const json = response.json();
-              return json;
-      */
     }
     componentDidMount() {
         this.getData()
@@ -55,6 +46,7 @@ export class CallApi extends Component {
     }
 
     static createUser(props) {
+        console.log(apiUrl)
         axios.post(`${apiUrl}/register`, {
             "email": props.email,
             "password": props.password,
@@ -70,19 +62,13 @@ export class CallApi extends Component {
 
     static loginUser(props) {
         axios.post(`${apiUrl}/api/login_check`, {
-                "email": props.email,
-                "password": props.password
-            })
+            "email": props.email,
+            "password": props.password
+        })
             .then(function (response) {
-                console.log('ok')
-                console.log(response.data.token);
-                if(response.data.token){
-                    AsyncStorage.setItem('JWT', response.data.token, () => {
-                          AsyncStorage.getItem('JWT', (err, result) => {
-                              console.log('stored token')
-                            console.log(result);
-                          });
-                      });
+                console.log(response.data.token)
+                if (response.data.token) {
+                    AsyncStorage.setItem('JWT', JSON.stringify(response.data.token))
                 }
             })
             .catch(function (error) {

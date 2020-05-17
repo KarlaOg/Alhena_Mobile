@@ -5,12 +5,24 @@ import {options} from '../registration/RegisterFormOptions';
 import {CallApi} from '../components/callApi';
 import t from "tcomb-form-native";
 import LoginUser from "../constants/User"
+import { AsyncStorage } from 'react-native';
 
 const Form = t.form.Form;
 
 export default class LoginScreen extends Component {
+    constructor(props) {
+        super(props)
+      }
     handleSubmit = () => {
         const values = this._form.getValue();
+        AsyncStorage.setItem('user', values.email)
+        .then((data) => {
+            console.log(data)
+        })
+        .catch((err) => {
+           console.log(err)
+        })
+
         CallApi.loginUser(values)
     };
 

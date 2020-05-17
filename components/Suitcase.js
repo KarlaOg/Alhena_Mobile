@@ -22,12 +22,13 @@ class Suitcase extends React.Component {
     title: 'People',
   };
   render() {
-    id = this.props.navigation.state.params
+    console.log(this.props.uriPrefix)
+    //id = this.props.navigation.state.params
     //const { id } = this.props.navigation.state.params; // B
-    if (!suitcase[id]) return <Text>Sorry, no data exists for this user</Text>
+    //if (!suitcase[id]) return <Text>Sorry, no data exists for this user</Text>
     return ( // C
       <View>
-        <Text style={styles.text}>{suitcase[id].id}</Text>
+        <Text style={styles.text}></Text>
       </View>
     )
   }

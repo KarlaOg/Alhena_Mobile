@@ -21,11 +21,11 @@ export default class HomeScreen extends Component {
     }
     async getToken() {
         try {  
-            const jwt = await AsyncStorage.getItem('JWT');
+            /*const jwt = await AsyncStorage.getItem('JWT');
             if (jwt !== undefined && jwt !== null) {
                 return JSON.parse(jwt);
                 console.log(jwt)
-            }
+            }*/
             return [];
         } catch (error) {
             console.error(error);
@@ -60,4 +60,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
 });
-
+HomeScreen.navigationOptions = {
+    header: null,
+};
