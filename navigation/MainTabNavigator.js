@@ -10,8 +10,9 @@ import ProfileScreen from '../screens/ProfileScreen'
 import SuitcaseScreen from "../screens/SuitcaseScreen";
 import WebPageScreen from '../screens/WebPageScreen';
 
+
 const config = Platform.select({
-    web: {headerMode: 'screen'},
+    web: { headerMode: 'screen'},
     default: {},
 });
 
