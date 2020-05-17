@@ -5,6 +5,7 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from "../screens/LoginScreen";
+import WebPageScreen from '../screens/WebPageScreen';
 import SuitcaseScreen from "../screens/SuitcaseScreen";
 import SuitcaseByIdScreen from "../screens/SuitcaseByIdScreen";
 import BookingScreen from '../screens/BookingScreen';
@@ -109,6 +110,23 @@ SuitcaseStack.navigationOptions = {
 
 SuitcaseStack.path = '';
 
+const WebPageStack = createStackNavigator(
+    {
+        Settings: WebPageScreen,
+    },
+    config
+);
+
+
+WebPageStack.navigationOptions = {
+    tabBarLabel: 'Paiement',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}/>
+    ),
+};
+
+WebPageStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
     LoginStack,
@@ -118,7 +136,8 @@ const tabNavigator = createBottomTabNavigator({
     Suitcase: {
         screen: SuitcaseByIdScreen,
         path: 'suitcase/'
-      }
+      },
+    WebPageStack
 });
 
 

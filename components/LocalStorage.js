@@ -7,11 +7,12 @@ class LocalStorage extends React.Component {
     }
 
     static async getToken() {
-     
-            const jwt = await AsyncStorage.getItem('JWT', (err, jwt) => {
-                return jwt
-            });
-    
+        try {
+            const jwt = await AsyncStorage.getItem('JWT');
+            return JSON.parse(jwt);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     static async storeToken(token) {

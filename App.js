@@ -7,6 +7,10 @@ import { Linking } from "expo";
 
 console.disableYellowBox = true;
 import AppNavigator from './navigation/AppNavigator';
+import {createStackNavigator} from "react-navigation";
+import ProfileScreen from "./screens/ProfileScreen";
+import TabBarIcon from "./components/TabBarIcon";
+import { Colors } from './assets/styles';
 
 const prefix = Linking.makeUrl("") + "/--/";
 
@@ -59,6 +63,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.default.primary,
     },
 });

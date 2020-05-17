@@ -30,6 +30,7 @@ export class CallApi extends Component {
                 return response.data;
             });
     }
+
     componentDidMount() {
         this.getData()
             .then((data) => {
@@ -48,12 +49,24 @@ export class CallApi extends Component {
     static createUser(props) {
         console.log(apiUrl)
         axios.post(`${apiUrl}/register`, {
-            "email": props.email,
-            "password": props.password,
-            "agreeTerms": props.terms
-        }
+                "email": props.email,
+                "password": props.password,
+                "agreeTerms": props.terms
+            }
         ).then(function (response) {
             console.log(response.data);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    static checkForUser(email) {
+        axios.post(`${apiUrl}/checkRegister`, {
+                "email": email,
+            }
+        ).then(function (response) {
+            return response;
         })
             .catch(function (error) {
                 console.log(error);
@@ -66,9 +79,13 @@ export class CallApi extends Component {
             "password": props.password
         })
             .then(function (response) {
-                console.log(response.data.token)
+                /*console.log(response.data.token)
                 if (response.data.token) {
-                    AsyncStorage.setItem('JWT', JSON.stringify(response.data.token))
+                    AsyncStorage.setItem('JWT', JSON.stringify(response.data.token))*/
+                if (response.data.token) {
+                    LocalStorage.storeToken(response.data.token).then(r => {
+                        return 200
+                    })
                 }
             })
             .catch(function (error) {
