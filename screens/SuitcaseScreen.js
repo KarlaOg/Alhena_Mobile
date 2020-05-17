@@ -11,6 +11,7 @@ import { AsyncStorage } from 'react-native';
 import getEnvVars from "../config/env";
 
 const {apiUrl} = getEnvVars();
+const {deepLink} = getEnvVars();
 
 export default class SuitcaseScreen extends Component {
     constructor(props) {
@@ -21,10 +22,6 @@ export default class SuitcaseScreen extends Component {
         }
       }
 
-    /*onPress = () => {
-        console.log(this.props.navigation)
-        this.props.navigation.navigate("SuitcaseById", {id: 1})
-      }*/
     render() {
         Linking.makeUrl()
         const prefix = Linking.makeUrl('/');
@@ -48,7 +45,7 @@ export default class SuitcaseScreen extends Component {
                                   })
                                 .then((response) => {
                                     console.log(response.data)
-                                    this.setState({suitcaseLink: "link: exp://192.168.1.46:19000/--/suitcase?id=" + response.data})
+                                    this.setState({suitcaseLink: `link: ${deepLink}/suitcase?id=${response.data}`})
                                 })
                                 .catch((error) => {
                                     console.log(error)

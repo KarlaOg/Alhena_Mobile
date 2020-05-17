@@ -47,7 +47,6 @@ export class CallApi extends Component {
     }
 
     static createUser(props) {
-        console.log(apiUrl)
         axios.post(`${apiUrl}/register`, {
                 "email": props.email,
                 "password": props.password,
@@ -79,9 +78,6 @@ export class CallApi extends Component {
             "password": props.password
         })
             .then(function (response) {
-                /*console.log(response.data.token)
-                if (response.data.token) {
-                    AsyncStorage.setItem('JWT', JSON.stringify(response.data.token))*/
                 if (response.data.token) {
                     LocalStorage.storeToken(response.data.token).then(r => {
                         return 200

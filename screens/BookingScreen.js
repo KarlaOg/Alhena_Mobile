@@ -46,19 +46,23 @@ export default class BookingScreen extends Component {
 
     async getData() {
         return new Promise((resolve, reject) => {
-            axios.get(`${apiUrl}/api/getBookings`, {
-                method: 'GET',
-                headers: {
-                    'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1ODg1MjM1NDEsImV4cCI6MTU4ODUyNzE0MSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoiYWFAYWEuY29tIn0.FsUy1c8oZE2e8OefYlqanFVSvo-8aGTE423diYRqlz5z83myRa7vZtA6tTvDGgVDNsjV2dVXodmRcvHo2U5ZenfnojiYgQQmYiXHCqTn0P956nNPQ_Ak75jw0W3DEbVO_6LPiIc-taOUbXJHxDEJFbzrnvzPQN5VqMReXWU3Eh7DnphSeA7sc64ygSvS_cyaoM31lusFQnoI6-Lqd6dxhqNcylKtF92qK20-LoC2pi8MsHB2xDt3_pUU44lCfi-B0e5XjGNHEFchtoUdkIK_DirCAZP4oQHW8k4_pFz7QbK7dGPfbO_v6KwwIho7C5UfdAhB54JM8piMhk91ScWa6CAweTwprEYzDYBHBmP8Y7HDOMnipgi2PMAXypafDP34NHettoIDNzQrPcIj56u5LXaqSwI25GTTk_qtm-gbjA2E38eba9v3SVJxUdHWPp138vRGjWCYozkyCQeBzFp7b5f6mJizfeGO_i7m0tV_asab3RTPVgcTPhbU08uUoPTH6nLfDxsjb8lwWlT2FZrj13ZVDBUimAOJB__RWnYOmKQaPFcm3AEJGcp4bcc7QfMI79imwsL2krtFVL06cdkpOiA7j6ja7Jrpao41z8n1oAOeJ_NkGfegIpNFBLsDZ0oTsVuNFA4to8_Xu_TesiAb_Lw5mT5hoqClr4fGgI3vNTk',
-                },
-            })
+            AsyncStorage.getItem('JWT', (err, jwt) => {
+                axios.get(`${apiUrl}/api/getBookings`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${JSON.parse(jwt)}`,
+                    },
+                })
                 .then(function (response) {
-                   console.log(response.data);
+                console.log(response.data);
                 })
                 .catch(function (error) {
                     console.log("error")
                     console.log(error);
                 });
+            })
         })
     }
 

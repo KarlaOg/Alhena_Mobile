@@ -7,9 +7,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class SuitcaseByIdScreen extends Component {
     render() {
-        console.log(this.props.navigation.state.params);
-        console.log(Linking.getInitialURL());
-        console.log(Linking.parse(Linking.getInitialURL()))
         return (
             <View>
                 <Text style={styles.textSuitcase}>suitcase {this.props.navigation.state.params.id}</Text>

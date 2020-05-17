@@ -3,7 +3,7 @@ import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState} from 'react';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
-import { Linking } from "expo";
+import { Linking } from 'expo';
 
 console.disableYellowBox = true;
 import AppNavigator from './navigation/AppNavigator';
