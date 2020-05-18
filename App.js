@@ -7,10 +7,8 @@ import { Linking } from 'expo';
 
 console.disableYellowBox = true;
 import AppNavigator from './navigation/AppNavigator';
-import {createStackNavigator} from "react-navigation";
-import ProfileScreen from "./screens/ProfileScreen";
-import TabBarIcon from "./components/TabBarIcon";
-import { Colors } from './assets/styles';
+import {Colors} from './assets/styles';
+import axios from 'axios';
 
 const prefix = Linking.makeUrl("") + "/--/";
 
@@ -21,7 +19,7 @@ export default function App(props) {
         return (
             <AppLoading
                 startAsync={loadResourcesAsync}
-                startAsync={loadResourcesAsync}
+                startAsync={loadAxiosCall}
                 onError={handleLoadingError}
                 onFinish={() => handleFinishLoading(setLoadingComplete)}
             />
@@ -35,6 +33,25 @@ export default function App(props) {
             </View>
         );
     }
+}
+
+async function loadAxiosCall() {
+    axios.interceptors.response.use(response => response, (error) => {
+        if (error.response) {
+            console.log('RESPONSE ================')
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+        } else if (error.request) {
+            console.log('REQUEST ================')
+            // console.log(error.request);
+        } else {
+            console.log('MESSAGE ================')
+            // console.log('Error', error.message);
+        }
+        // console.log(error.config);
+    });
+     // HANDLE REDIRECT TO LOGIN IF SESSION TOKEN EXPIRED
 }
 
 async function loadResourcesAsync() {

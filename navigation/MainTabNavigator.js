@@ -10,6 +10,9 @@ import SuitcaseScreen from "../screens/SuitcaseScreen";
 import SuitcaseByIdScreen from "../screens/SuitcaseByIdScreen";
 import BookingScreen from '../screens/BookingScreen';
 import ProfileScreen from '../screens/ProfileScreen'
+import SuitcaseScreen from "../screens/SuitcaseScreen";
+import PaymentScreen from '../screens/PaymentScreen';
+
 const config = Platform.select({
     web: {headerMode: 'screen'},
     default: {},
@@ -112,7 +115,7 @@ SuitcaseStack.path = '';
 
 const WebPageStack = createStackNavigator(
     {
-        Settings: WebPageScreen,
+        Settings: PaymentScreen,
     },
     config
 );
