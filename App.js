@@ -3,6 +3,7 @@ import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState} from 'react';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import { Linking } from 'expo';
 
 console.disableYellowBox = true;
 import AppNavigator from './navigation/AppNavigator';
@@ -10,6 +11,8 @@ import {createStackNavigator} from "react-navigation";
 import ProfileScreen from "./screens/ProfileScreen";
 import TabBarIcon from "./components/TabBarIcon";
 import { Colors } from './assets/styles';
+
+const prefix = Linking.makeUrl("") + "/--/";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -22,12 +25,13 @@ export default function App(props) {
                 onError={handleLoadingError}
                 onFinish={() => handleFinishLoading(setLoadingComplete)}
             />
-        );
-    } else {
+        );    
+    } 
+    else {
         return (
             <View style={styles.container}>
                 {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-                <AppNavigator/>
+                <AppNavigator uriPrefix={prefix}/>
             </View>
         );
     }
