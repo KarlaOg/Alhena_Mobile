@@ -2,7 +2,7 @@ import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState} from 'react';
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import {Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Linking } from 'expo';
 
 console.disableYellowBox = true;
@@ -11,6 +11,9 @@ import {Colors} from './assets/styles';
 import axios from 'axios';
 
 const prefix = Linking.makeUrl("") + "/--/";
+
+
+
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -58,7 +61,9 @@ async function loadResourcesAsync() {
     await Promise.all([
         Asset.loadAsync([
             require('./assets/images/robot-dev.png'),
-            require('./assets/images/robot-prod.png'),
+            require('./assets/images/background/background.png'),
+            require('./assets/images/arrows/fleche.png'),
+            require('./assets/images/robot/robot2x.png'), 
         ]),
         Font.loadAsync({
             'title-font': require('./assets/fonts/ORATOR10.ttf'),
@@ -82,4 +87,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.default.primary,
     },
+    image: {
+        width: '100%',
+        height: '100%',
+        flex: 1 
+      },
 });
