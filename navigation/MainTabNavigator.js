@@ -5,10 +5,13 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from "../screens/LoginScreen";
+import WebPageScreen from '../screens/WebPageScreen';
+import SuitcaseScreen from "../screens/SuitcaseScreen";
+import SuitcaseByIdScreen from "../screens/SuitcaseByIdScreen";
 import BookingScreen from '../screens/BookingScreen';
 import ProfileScreen from '../screens/ProfileScreen'
 import SuitcaseScreen from "../screens/SuitcaseScreen";
-import WebPageScreen from '../screens/WebPageScreen';
+import PaymentScreen from '../screens/PaymentScreen';
 
 
 const config = Platform.select({
@@ -41,7 +44,7 @@ HomeStack.path = '';
 
 const LoginStack = createStackNavigator(
     {
-        Settings: LoginScreen,
+        Login: LoginScreen,
     },
     config
 );
@@ -53,11 +56,11 @@ LoginStack.navigationOptions = {
     ),
 };
 
-LoginStack.path = '';
+LoginStack.path = '/login';
 
 const BookingStack = createStackNavigator(
     {
-        Settings: BookingScreen,
+        Booking: BookingScreen,
     },
     config
 );
@@ -94,6 +97,7 @@ const SuitcaseStack = createStackNavigator(
     config
 );
 
+
 SuitcaseStack.navigationOptions = {
     tabBarLabel: 'suitcase',
     tabBarIcon: ({focused}) => (
@@ -112,10 +116,11 @@ SuitcaseStack.path = '';
 
 const WebPageStack = createStackNavigator(
     {
-        Settings: WebPageScreen,
+        Settings: PaymentScreen,
     },
     config
 );
+
 
 WebPageStack.navigationOptions = {
     tabBarLabel: 'Paiement',
@@ -126,17 +131,18 @@ WebPageStack.navigationOptions = {
 
 WebPageStack.path = '';
 
-
 const tabNavigator = createBottomTabNavigator({
-        HomeStack,
-        LoginStack,
-        BookingStack,
-        ProfileStack,
-        SuitcaseStack,
-        WebPageStack,
-    })
-;
+    HomeStack,
+    LoginStack,
+    SuitcaseScreen,
+    BookingStack,
+    ProfileStack,
+    Suitcase: {
+        screen: SuitcaseByIdScreen,
+        path: 'suitcase/'
+      },
+    WebPageStack
+});
 
-tabNavigator.path = '';
 
 export default tabNavigator;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity , Text , Image , ScrollView , ImageBackground}  from 'react-native';
+import {View, StyleSheet, TouchableOpacity , Text , Image , ScrollView , ImageBackground, Button, AsyncStorage}  from 'react-native';
 
 import {loginOptions} from '../login/LoginFormOptions';
 import {CallApi} from '../components/callApi';
@@ -16,8 +16,19 @@ const Form = t.form.Form
 
 
 export default class LoginScreen extends Component {
+    constructor(props) {
+        super(props)
+      }
     handleSubmit = () => {
         const values = this._form.getValue();
+        AsyncStorage.setItem('user', values.email)
+        .then((data) => {
+            console.log(data)
+        })
+        .catch((err) => {
+           console.log(err)
+        })
+
         CallApi.loginUser(values)
     };
     render() {

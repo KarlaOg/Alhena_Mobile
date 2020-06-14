@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import {Component} from 'react';
 import {Text} from 'react-native';
+import t from "tcomb-form-native";
 import LocalStorage from '../components/LocalStorage'
+import {AsyncStorage} from 'react-native';
 
 import getEnvVars from "../config/env";
 
@@ -11,11 +13,12 @@ const {apiUrl} = getEnvVars();
 
 export class CallApi extends Component {
     state = {
-        data: {}
+        data: {},
+        suitcaseId: 0
     };
 
     async getData() {
-        axios.get("https://pacaud-lilian.com/serverpfe", {
+        axios.get("http://192.168.1.46:8001", {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

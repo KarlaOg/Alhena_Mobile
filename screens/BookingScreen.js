@@ -46,20 +46,23 @@ export default class BookingScreen extends Component {
 
     async getData() {
         return new Promise((resolve, reject) => {
-            axios.get(`${apiUrl}/getBookings`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            })
+            AsyncStorage.getItem('JWT', (err, jwt) => {
+                axios.get(`${apiUrl}/api/getBookings`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${JSON.parse(jwt)}`,
+                    },
+                })
                 .then(function (response) {
-                    resolve(response.data);
+                console.log(response.data);
                 })
                 .catch(function (error) {
                     console.log("error")
                     console.log(error);
                 });
+            })
         })
     }
 

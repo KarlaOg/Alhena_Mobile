@@ -1,12 +1,14 @@
-let localURL = '192.168.186.1:8080';
+let localURL = 'http://192.168.186.1:8000';
 export let facebookEnv = 563205851125665;
 const ENV = {
     dev: {
-        apiUrl: localURL,
+        apiUrl: "http://192.168.1.46:8001",
+        deepLink: "exp://192.168.1.46:19000/--",
         amplitudeApiKey: null,
     },
     prod: {
         apiUrl: "https://pacaud-lilian.com/serverpfe",
+        deepLink: "exp://192.168.1.46:19000/--",
         amplitudeApiKey: null,
         // Add other keys you want here
     }
