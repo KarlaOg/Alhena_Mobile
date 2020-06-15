@@ -14,7 +14,7 @@ import AddSuitcaseScreen from '../screens/AddSuitcaseScreen';
 
 
 const config = Platform.select({
-    web: { headerMode: 'screen'},
+    web: {headerMode: 'screen'},
     default: {},
 });
 
@@ -138,7 +138,6 @@ AddSuitcaseStack.navigationOptions = {
 AddSuitcaseStack.path = '';
 
 
-
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
     LoginStack,
@@ -149,7 +148,7 @@ const tabNavigator = createBottomTabNavigator({
     Suitcase: {
         screen: SuitcaseByIdScreen,
         path: 'suitcase/'
-      },
+    },
 });
 
 
