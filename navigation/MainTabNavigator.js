@@ -5,13 +5,12 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from "../screens/LoginScreen";
-import WebPageScreen from '../screens/WebPageScreen';
 import SuitcaseScreen from "../screens/SuitcaseScreen";
 import SuitcaseByIdScreen from "../screens/SuitcaseByIdScreen";
 import BookingScreen from '../screens/BookingScreen';
 import ProfileScreen from '../screens/ProfileScreen'
-import SuitcaseScreen from "../screens/SuitcaseScreen";
 import PaymentScreen from '../screens/PaymentScreen';
+import AddSuitcaseScreen from '../screens/AddSuitcaseScreen';
 
 
 const config = Platform.select({
@@ -114,22 +113,31 @@ SuitcaseStack.navigationOptions = {
 
 SuitcaseStack.path = '';
 
-const WebPageStack = createStackNavigator(
+const AddSuitcaseStack = createStackNavigator(
     {
-        Settings: PaymentScreen,
+        Settings: AddSuitcaseScreen,
     },
     config
 );
 
 
-WebPageStack.navigationOptions = {
-    tabBarLabel: 'Paiement',
+AddSuitcaseStack.navigationOptions = {
+    tabBarLabel: 'addSuitcase',
     tabBarIcon: ({focused}) => (
-        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}/>
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-information-circle${focused ? '' : '-outline'}`
+                    : 'md-information-circle'
+            }
+        />
     ),
 };
 
-WebPageStack.path = '';
+AddSuitcaseStack.path = '';
+
+
 
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
@@ -137,11 +145,11 @@ const tabNavigator = createBottomTabNavigator({
     SuitcaseScreen,
     BookingStack,
     ProfileStack,
+    AddSuitcaseScreen,
     Suitcase: {
         screen: SuitcaseByIdScreen,
         path: 'suitcase/'
       },
-    WebPageStack
 });
 
 
