@@ -7,6 +7,7 @@ import {RegisterUser} from "../constants/User"
 import AsyncStorage from 'react-native'
 import {Colors, Spacing , Buttons , Texts } from "../assets/styles";
 import {FacebookButton} from "../components/FacebookButton"
+import {GoogleButton} from "../components/GoogleButton"
 
 
 
@@ -38,6 +39,7 @@ export default class HomeScreen extends Component {
                 </Text>
 
                 <FacebookButton/>
+                <GoogleButton style={styles.googleSignIn}/>
 
                 <Text style={styles.infoTitleText}> Ou inscrivez-vous avec votre adresse e-mail </Text>
 
@@ -113,6 +115,10 @@ const styles = StyleSheet.create({
 
     arrow:{
         marginTop:Spacing.arrowSpacing.spacingMarginTop,  
+    },
+
+    googleSignIn:{
+           paddingRight:300,
     }
 
 });
