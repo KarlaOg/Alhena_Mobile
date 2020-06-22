@@ -3,6 +3,7 @@ export default {
   primary:'#363F46',
   grey:'#728694',
   tintColor:'#2f95dc',
+
 };
 export const notifications = {
   errorBackground: 'red',
@@ -18,3 +19,4 @@ export const TabBar = {
   tabIconSelected: '#2f95dc',
   tabBar: '#fefefe',
 }
+

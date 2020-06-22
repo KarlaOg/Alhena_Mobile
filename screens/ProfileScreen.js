@@ -146,7 +146,8 @@ const styles = StyleSheet.create({
         width: Window.width - 60,
         borderRadius: 25,
         borderColor: 'red',
-    }, button: {
+    }, 
+    button: {
         padding: 10,
         margin: 20,
         marginRight: 0,

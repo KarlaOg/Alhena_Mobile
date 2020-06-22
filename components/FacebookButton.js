@@ -60,7 +60,7 @@ export class FacebookButton extends Component {
         return (
             <SocialIcon
                 style={styles.facebookButton}
-                title='Se connecter avec Facebook'
+                title='Facebook'
                 button
                 type='facebook'
                 onPress={this.logIn}
@@ -71,7 +71,12 @@ export class FacebookButton extends Component {
 
 const styles = StyleSheet.create({
     facebookButton: {
-        borderRadius: 0,
+        borderRadius: 5,
+        width:180,
+        fontSize:18, 
+        fontFamily:'text-font',
+        marginBottom:10, 
+        marginLeft:0, 
     },
 });
 

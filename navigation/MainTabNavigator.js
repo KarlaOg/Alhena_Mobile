@@ -12,8 +12,9 @@ import ProfileScreen from '../screens/ProfileScreen'
 import PaymentScreen from '../screens/PaymentScreen';
 import AddSuitcaseScreen from '../screens/AddSuitcaseScreen';
 
+
 const config = Platform.select({
-    web: {headerMode: 'screen'},
+    web: { headerMode: 'screen'},
     default: {},
 });
 
