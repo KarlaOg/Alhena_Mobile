@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity , Text , Image , ScrollView , ImageBackground, Button, AsyncStorage}  from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text, Image, ScrollView, ImageBackground, Button} from 'react-native';
 
 import {loginOptions} from '../login/LoginFormOptions';
 import {CallApi} from '../components/callApi';
@@ -8,8 +8,7 @@ import t from "tcomb-form-native";
 import LoginUser from "../constants/User"
 
 import {FacebookButton} from "../components/FacebookButton"
-import {Colors, Spacing , Buttons , Texts } from "../assets/styles";
-
+import {Colors, Spacing, Buttons, Texts} from "../assets/styles";
 
 
 const Form = t.form.Form
@@ -18,53 +17,49 @@ const Form = t.form.Form
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props)
-      }
+    }
+
     handleSubmit = () => {
         const values = this._form.getValue();
-        AsyncStorage.setItem('user', values.email)
-        .then((data) => {
-            console.log(data)
-        })
-        .catch((err) => {
-           console.log(err)
-        })
-
         CallApi.loginUser(values)
     };
+
     render() {
         return (
-           
+
             <ScrollView>
-                 <View style={styles.container}>
-              <ImageBackground source={require('../assets/images/background/background.png')} style={styles.image}> 
+                <View style={styles.container}>
+                    <ImageBackground source={require('../assets/images/background/background.png')}
+                                     style={styles.image}>
 
-            <Image source={require('../assets/images/robot/robot2x.png')}
-            style={styles.imageRobot}></Image>
-           
-                <Text style={styles.titleText}>ALHÉNA</Text>
+                        <Image source={require('../assets/images/robot/robot2x.png')}
+                               style={styles.imageRobot}/>
 
-        <Text style={styles.subTitleText}>L’application qui te permet de partir en voyage entre amis sans prises de têtes !</Text>
+                        <Text style={styles.titleText}>ALHÉNA</Text>
 
-                <Form ref={c => this._form = c}
-                    type={LoginUser} options={loginOptions}/>
-                    <Text style={styles.forgotPassword} > Mot de passe oublié ?</Text>
+                        <Text style={styles.subTitleText}>L’application qui te permet de partir en voyage entre amis
+                            sans prises de têtes !</Text>
 
-               
-                 <TouchableOpacity accessible={true} accessibilityLabel="Déréserver"
-                                  accessibilityHint="Enlever la réservation"
-                                  style={styles.button}
-                                  onPress={this.handleSubmit}
-                                  >
-                    <Text style={styles.buttonText}>Connexion</Text>
-                </TouchableOpacity>
+                        <Form ref={c => this._form = c}
+                              type={LoginUser} options={loginOptions}/>
+                        <Text style={styles.forgotPassword}> Mot de passe oublié ?</Text>
 
-                <FacebookButton/>
 
-                <Text style={styles.noAccountText}>Je n'ai pas de compte</Text>
-                </ImageBackground>
+                        <TouchableOpacity accessible={true} accessibilityLabel="Déréserver"
+                                          accessibilityHint="Enlever la réservation"
+                                          style={styles.button}
+                                          onPress={this.handleSubmit}
+                        >
+                            <Text style={styles.buttonText}>Connexion</Text>
+                        </TouchableOpacity>
+
+                        <FacebookButton/>
+
+                        <Text style={styles.noAccountText}>Je n'ai pas de compte</Text>
+                    </ImageBackground>
                 </View>
-                </ScrollView>
-            
+            </ScrollView>
+
         );
     }
 }
@@ -74,60 +69,60 @@ const styles = StyleSheet.create({
         flex: 1,
         ...Spacing.default.containerSpacing,
         justifyContent: 'center',
-        backgroundColor:Colors.default.primary, 
+        backgroundColor: Colors.default.primary,
 
     },
-    image:{
+    image: {
         width: '100%',
         height: '100%',
-        flex: 1 
-    }, 
+        flex: 1
+    },
 
     button: {
-        ...Buttons.aquaButton, 
-        
+        ...Buttons.aquaButton,
+
     },
 
     buttonText: {
-        ...Buttons.aquaButtonText, 
+        ...Buttons.aquaButtonText,
     },
 
     titleText: {
-        ...Texts.headerCenterTitle, 
+        ...Texts.headerCenterTitle,
 
     },
 
     subTitleText: {
-        ...Texts.subCenterTitle, 
+        ...Texts.subCenterTitle,
         fontFamily: 'text-font',
-        marginBottom:30,
-        marginLeft:10, 
+        marginBottom: 30,
+        marginLeft: 10,
     },
 
     noAccountText: {
         textAlign: "center",
-        textDecorationLine:"underline", 
-        color: "#FFFFFF", 
-        fontSize: 15, 
-        fontFamily:'text-font',
+        textDecorationLine: "underline",
+        color: "#FFFFFF",
+        fontSize: 15,
+        fontFamily: 'text-font',
     },
 
-    imageRobot:{
-        marginLeft:105, 
-        marginBottom:30, 
-        marginTop:60, 
-        resizeMode: 'contain', 
+    imageRobot: {
+        marginLeft: 105,
+        marginBottom: 30,
+        marginTop: 60,
+        resizeMode: 'contain',
         width: 190,
         height: 190,
-    }, 
+    },
 
-    forgotPassword:{
-        fontFamily:'text-font',
-        textDecorationLine:"underline", 
-        color: "#B3B3B3", 
-        fontStyle:'italic', 
+    forgotPassword: {
+        fontFamily: 'text-font',
+        textDecorationLine: "underline",
+        color: "#B3B3B3",
+        fontStyle: 'italic',
     }
-    
+
 });
 LoginScreen.navigationOptions = {
     header: null,
