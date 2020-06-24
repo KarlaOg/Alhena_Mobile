@@ -73,15 +73,18 @@ export class CallApi extends Component {
     }
 
     static loginUser(props) {
+        console.log(props, `${apiUrl}/api/login_check`)
         axios.post(`${apiUrl}/api/login_check`, {
             "email": props.email,
             "password": props.password
         })
             .then(function (response) {
+                console.log(response.data.token);
                 if (response.data.token) {
                     LocalStorage.storeToken(response.data.token).then(r => {
                         return 200
                     })
+                    AsyncStorage.setItem('user', props.email)
                 }
             })
             .catch(function (error) {

@@ -5,12 +5,13 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from "../screens/LoginScreen";
-import SuitcaseScreen from "../screens/SuitcaseScreen";
 import SuitcaseByIdScreen from "../screens/SuitcaseByIdScreen";
 import BookingScreen from '../screens/BookingScreen';
 import ProfileScreen from '../screens/ProfileScreen'
 import PaymentScreen from '../screens/PaymentScreen';
 import AddSuitcaseScreen from '../screens/AddSuitcaseScreen';
+import VoteScreen from '../screens/VoteScreen';
+import SuitcaseScreen from "../screens/SuitcaseScreen";
 
 
 const config = Platform.select({
@@ -89,6 +90,60 @@ ProfileStack.navigationOptions = {
 
 ProfileStack.path = '';
 
+const AddSuitcaseStack = createStackNavigator(
+    {
+        Settings: AddSuitcaseScreen,
+        Payment: PaymentScreen,
+    },
+    config
+);
+
+
+AddSuitcaseStack.navigationOptions = {
+    tabBarLabel: 'addSuitcase',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-information-circle${focused ? '' : '-outline'}`
+                    : 'md-information-circle'
+            }
+        />
+    ),
+};
+
+AddSuitcaseStack.path = '';
+
+const WebPageStack = createStackNavigator(
+    {
+        Payment: PaymentScreen,
+    },
+    config
+);
+
+
+WebPageStack.navigationOptions = {
+    tabBarLabel: 'Paiement',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}/>
+    ),
+};
+
+WebPageStack.path = '';
+
+const VoteStack = createStackNavigator(
+    {
+        Vote: VoteScreen,
+    },
+    config
+);
+
+
+VoteStack.navigationOptions = {};
+
+VoteStack.path = '';
+
 const SuitcaseStack = createStackNavigator(
     {
         Settings: SuitcaseScreen,
@@ -113,35 +168,9 @@ SuitcaseStack.navigationOptions = {
 
 SuitcaseStack.path = '';
 
-const AddSuitcaseStack = createStackNavigator(
-    {
-        Settings: AddSuitcaseScreen,
-    },
-    config
-);
-
-
-AddSuitcaseStack.navigationOptions = {
-    tabBarLabel: 'addSuitcase',
-    tabBarIcon: ({focused}) => (
-        <TabBarIcon
-            focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-information-circle${focused ? '' : '-outline'}`
-                    : 'md-information-circle'
-            }
-        />
-    ),
-};
-
-AddSuitcaseStack.path = '';
-
-
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
     LoginStack,
-    SuitcaseScreen,
     BookingStack,
     ProfileStack,
     AddSuitcaseScreen,
@@ -149,6 +178,9 @@ const tabNavigator = createBottomTabNavigator({
         screen: SuitcaseByIdScreen,
         path: 'suitcase/'
     },
+    VoteStack,
+    SuitcaseStack,
+    WebPageStack
 });
 
 

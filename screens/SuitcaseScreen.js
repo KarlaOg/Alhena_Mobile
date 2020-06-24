@@ -24,7 +24,7 @@ export default class SuitcaseScreen extends Component {
             username: null
         }
         this.loadCredentials()
-      }
+    }
 
     async loadCredentials() {
         try {
@@ -44,43 +44,43 @@ export default class SuitcaseScreen extends Component {
             <View style={styles.container}>
                 <Image style={styles.logo} source={require('../assets/images/robot-face.png')}/>
                 <Text style={styles.mainText}>Bonjour {this.state.username},{"\n"}que souhaites-tu faire?</Text>
-               <TouchableOpacity
-                /*onPress={() => {
-                    AsyncStorage.getItem('user')
-                    .then((data) => {
-                            AsyncStorage.getItem('JWT', (err, jwt) => {
-                                axios({
-                                    method: 'POST',
-                                    url: `${apiUrl}/api/add_suitcase`,
-                                    data: {
-                                      email: data,
-                                    },
-                                    headers: {
-                                        'Authorization': `Bearer ${JSON.parse(jwt)}`,
-                                        'Content-Type': 'application/json',
-                                    }
-                                  })
-                                .then((response) => {
-                                    console.log(response.data)
-                                    this.setState({suitcaseLink: `link: ${deepLink}/suitcase?id=${response.data}`})
-                                })
-                                .catch((error) => {
-                                    console.log(error)
-                                })
-                            });
-                        
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-                }}*/
-                onPress={() => {this.props.navigation.navigate('addSuitcase');}}
-                style={styles.buttonAdd}
+                <TouchableOpacity
+                    /*onPress={() => {
+                        AsyncStorage.getItem('user')
+                        .then((data) => {
+                                AsyncStorage.getItem('JWT', (err, jwt) => {
+                                    axios({
+                                        method: 'POST',
+                                        url: `${apiUrl}/api/add_suitcase`,
+                                        data: {
+                                          email: data,
+                                        },
+                                        headers: {
+                                            'Authorization': `Bearer ${JSON.parse(jwt)}`,
+                                            'Content-Type': 'application/json',
+                                        }
+                                      })
+                                    .then((response) => {
+                                        console.log(response.data)
+                                        this.setState({suitcaseLink: `link: ${deepLink}/suitcase?id=${response.data}`})
+                                    })
+                                    .catch((error) => {
+                                        console.log(error)
+                                    })
+                                });
+
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                    }}*/
+                    onPress={() => {this.props.navigation.navigate('addSuitcase');}}
+                    style={styles.buttonAdd}
                 >
-                     <Text style={styles.textButtonAdd}>Créer ma valise</Text>
+                    <Text style={styles.textButtonAdd}>Créer ma valise</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonJoin}><Text>Rejoindre une valise</Text></TouchableOpacity>
-                <Text>{this.state.suitcaseLink}</Text>  
+                <Text>{this.state.suitcaseLink}</Text>
                 <Text style={styles.mySuitcase}>Mes valises</Text>
             </View>
         )
@@ -88,6 +88,10 @@ export default class SuitcaseScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'rgb(54,63,70)',
+    },
     logo: {
         alignSelf: 'center',
         marginTop: 50,

@@ -1,17 +1,17 @@
 import t from "tcomb-form-native";
 
 export let RegisterUser = t.struct({
-    'Adresse email': t.String,
-    'Prénom': t.String,
-    'Nom': t.String,
-    'Mot de passe': t.String, 
-    'Date de naissance': t.Number, 
-    'Accepter les terms': t.Boolean
+    'email': t.String,
+    'firstname': t.String,
+    'lastname': t.String,
+    'password': t.String,
+    'birthdate': t.Number,
+    'terms': t.Boolean
 });
 
 let LoginUser = t.struct({
-    'Adresse e-mail': t.String,
-    'Mot de passe': t.String,
+    'email': t.String,
+    'password': t.String,
 });
 
 t.form.Form.stylesheet.textbox.normal.borderWidth = 0;
@@ -52,7 +52,7 @@ t.form.Form.stylesheet.controlLabel.error.fontSize = 18;
 
 
 t.form.Form.stylesheet.textboxView.normal.fontFamily = 'text-font';
-t.form.Form.stylesheet.textboxView.errorfontFamily = 'text-font'; 
+t.form.Form.stylesheet.textboxView.errorfontFamily = 'text-font';
 
 
 t.form.Form.stylesheet.textbox.normal.fontFamily = 'text-font';

@@ -72,11 +72,11 @@ export class FacebookButton extends Component {
 const styles = StyleSheet.create({
     facebookButton: {
         borderRadius: 5,
-        width:180,
-        fontSize:18, 
-        fontFamily:'text-font',
-        marginBottom:10, 
-        marginLeft:0, 
+        width: 180,
+        // fontSize:18,
+        fontFamily: 'text-font',
+        marginBottom: 10,
+        marginLeft: 0,
     },
-});
+})
 
