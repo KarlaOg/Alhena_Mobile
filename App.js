@@ -38,7 +38,8 @@ export default class App extends Component {
             if (error.response) {
                 console.log('RESPONSE ================');
                 console.log(error.response.data);
-                if(error.response.data.message === 'Invalid JWT Token'){
+                if (error.response.data.message === 'Invalid JWT Token') {
+                    this.props.navigation.navigate('Login')
                     console.log('jwt expiré')
                 }
                 // console.log(error.response.status);
@@ -67,6 +68,7 @@ export default class App extends Component {
             Font.loadAsync({
                 'title-font': require('./assets/fonts/ORATOR10.ttf'),
                 'text-font': require('./assets/fonts/Montserrat-Medium.otf'),
+                'title-font2': require('./assets/fonts/Montserrat-Bold.otf'),
             }),
         ]);
         this.setState({loading: false})
@@ -77,10 +79,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.default.primary,
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-        flex: 1
     },
 });

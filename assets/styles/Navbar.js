@@ -1,22 +1,20 @@
-
 export default {
     circle: {
         position: 'relative',
         borderRadius: 1000,
         backgroundColor: 'white',
-        width: 25,
-        height: 25,
-        marginRight: 50,
+        width: 10,
+        height: 10,
     },
     bar: {
         position: 'absolute',
         backgroundColor: 'white',
-        left: 25,
-        width: 50,
+        left: 10,
         height: 3,
-        top: 11,
+        top: 3,
     },
     navBar: {
+        margin: 'auto',
         flexDirection: 'row',
-     }
+    }
 }

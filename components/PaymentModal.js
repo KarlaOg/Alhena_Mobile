@@ -16,42 +16,15 @@ import getEnvVars from "../config/env";
 
 const {apiUrl} = getEnvVars();
 
-export class VoteModal extends Component {
+export class PaymentModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modalVisible: false,
             bookingId: null,
             user: null,
-            data: null,
-            token: null,
-            suitcaseId: null,
-            screen: null,
+            token: null
         };
-    }
-
-    voteBooking() {
-        axios({
-            method: 'POST',
-            url: `${apiUrl}/api/voteForBooking`,
-            data: {
-                "booking_id": this.state.bookingId,
-                "email": this.state.user,
-                "suitcase_id": this.state.suitcaseId,
-            },
-            headers: {
-                'Authorization': `Bearer ${this.state.token}`,
-                'Content-Type': 'application/json',
-            }
-        }).then(function (response) {
-            this.state.screen.props.navigation.navigate('Vote', {
-                data: JSON.stringify(this.state.data),
-                suitcaseId: this.state.suitcaseId
-            });
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,10 +32,7 @@ export class VoteModal extends Component {
             modalVisible: nextProps.modalVisible,
             user: nextProps.user,
             bookingId: nextProps.bookingId,
-            token: nextProps.token,
-            data: nextProps.data,
-            suitcase_id: nextProps.suitcaseId,
-            screen: nextProps.screen,
+            token: nextProps.token
         });
     }
 
@@ -80,24 +50,16 @@ export class VoteModal extends Component {
                 <View style={styles.container}>
                     <View style={styles.content}>
                         <Image style={styles.image} source={require('../assets/images/robot/iconeContent.png')}/>
-                        <Text style={styles.textLabel}>Êtes vous sûre de votre choix, attention vous ne pourrez pas
-                            le
-                            modifier !
+                        <Text style={styles.textLabel}>Merci pour votre paiement, vous pouvez dès à présent regarder
+                            votre voyage.
                         </Text>
                     </View>
-                    <TouchableHighlight
-                        style={styles.button}
-                        onPress={() => {
-                            this.voteBooking()
-                        }}>
-                        <Text style={styles.buttonText}>Oui</Text>
-                    </TouchableHighlight>
                     <TouchableHighlight
                         style={[styles.button, styles.disabled]}
                         onPress={() => {
                             this.setState({modalVisible: !this.state.modalVisible});
                         }}>
-                        <Text style={[styles.buttonText, styles.buttonTextDisabled]}>Non</Text>
+                        <Text style={[styles.buttonText, styles.buttonTextDisabled]}>J'ai compris</Text>
                     </TouchableHighlight>
                 </View>
             </Modal>

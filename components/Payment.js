@@ -11,6 +11,7 @@ class Payment extends React.Component {
         super(props);
         this.state = {
             url: '',
+            count: 0,
         };
         this.createOrder = this.createOrder.bind(this)
         this.createOrder()
@@ -38,9 +39,18 @@ class Payment extends React.Component {
     }
 
     render() {
+        const screen = this.props.screen;
         return (
             <WebView
                 source={{uri: this.state.url}}
+                onNavigationStateChange={(navEvent) => {
+                    this.setState({count: this.state.count + 1})
+                    if (this.state.count === 6) {
+                        screen.props.navigation.navigate('SuitCaseHome', {
+                            payment: true,
+                        })
+                    }
+                }}
             />
         );
     }

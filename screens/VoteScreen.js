@@ -18,12 +18,19 @@ export default class BookingScreen extends Component {
     constructor(props) {
         super(props);
         this.renderItem = this.renderItem.bind(this);
+        this.state = {
+            higher: null,
+        }
     }
 
     renderItem({item, index}) {
         return (
             <Booking vote={true} updateId={this.updateId} data={item}/>
         )
+    }
+
+    setHigher(data) {
+
     }
 
     render() {
@@ -35,7 +42,7 @@ export default class BookingScreen extends Component {
                     <ScrollView>
                         <FlatList
                             renderItem={this.renderItem}
-                            data={JSON.parse(navigation.getParam('data'))}
+                            data={this.setHigher(JSON.parse(navigation.getParam('data')))}
                             style={styles.listItem}/>
                     </ScrollView>
                     <TouchableOpacity accessible={true}
@@ -43,8 +50,8 @@ export default class BookingScreen extends Component {
                                       style={styles.button}
                                       onPress={() => {
                                           this.props.navigation.navigate('Payment', {
-                                              booking_id: 6,
-                                              suitcase_id: 1
+                                              booking_id: this.state.higher,
+                                              suitcase_id: JSON.parse(navigation.getParam('suitcaseId'))
                                           });
                                       }}>
                         <Text style={styles.buttonText}>Finaliser le voyage</Text>
