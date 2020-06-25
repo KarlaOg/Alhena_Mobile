@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
+import {Stepbar} from "../components/Stepbar";
 import Step1 from "./form/step1";
 import Step2 from "./form/step2";
 import Step3 from "./form/step3";
@@ -39,6 +40,7 @@ const allSteps = [
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Stepbar/>
         <AnimatedMultistep
           steps={allSteps}
           onFinish={this.finish}
@@ -53,3 +55,15 @@ const allSteps = [
     );
   }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        ...Spacing.default.containerSpacing,
+        justifyContent: 'center',
+        backgroundColor: Colors.default.primary
+    },
+});
+FormScreen.navigationOptions = {
+    header: null,
+};

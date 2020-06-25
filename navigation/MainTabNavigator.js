@@ -211,3 +211,5 @@ const tabNavigator = createBottomTabNavigator({
 
 
 export default tabNavigator;
+
+
