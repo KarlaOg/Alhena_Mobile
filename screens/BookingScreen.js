@@ -5,7 +5,7 @@ import {
     StyleSheet,
     FlatList,
     Text,
-    Dimensions, AsyncStorage, ScrollView, TouchableOpacity,
+    Dimensions, AsyncStorage, ScrollView, TouchableOpacity, ImageBackground,
 } from 'react-native';
 
 import getEnvVars from "../config/env";
@@ -22,7 +22,8 @@ export default class BookingScreen extends Component {
             currentSelected: null,
             modalVisible: false,
             user: null,
-            token: null
+            token: null,
+            suitcaseId: null,
         };
         this.getData = this.getData.bind(this);
         this.updateId = this.updateId.bind(this);
@@ -48,7 +49,7 @@ export default class BookingScreen extends Component {
             if (testVoted) {
                 this.props.navigation.navigate('Vote', {
                     data: JSON.stringify(response),
-                    suitcase_id: 1
+                    suitcase_id: this.state.suitcaseId
                 });
             } else {
                 this.setState({
@@ -68,13 +69,13 @@ export default class BookingScreen extends Component {
                 AsyncStorage.getItem('user')
                     .then((data) => {
                         AsyncStorage.getItem('JWT', (err, jwt) => {
-                            this.setState({user: data, token: JSON.parse(jwt)})
+                            this.setState({user: data, token: JSON.parse(jwt), suitcaseId: suitcaseId})
                             axios({
                                 method: 'POST',
                                 url: `${apiUrl}/api/algo`,
                                 data: {
                                     email: data,
-                                    suitcase_id: 1,
+                                    suitcase_id: suitcaseId,
                                 },
                                 headers: {
                                     'Authorization': `Bearer ${JSON.parse(jwt)}`,
@@ -98,22 +99,27 @@ export default class BookingScreen extends Component {
             <View style={[styles.container]}>
                 <VoteModal token={this.state.token} modalVisible={this.state.modalVisible}
                            user={this.state.user}
+                           screen={this} data={this.state.elements} suitcaseId={this.state.suitcaseId}
                            bookingId={this.state.currentSelected}/>
-                <Text accessible={true} style={styles.title}>Vos résultats</Text>
-                <View style={styles.scrollViewContainer}>
-                    <ScrollView>
-                        <FlatList
-                            renderItem={this.renderItem}
-                            data={this.state.elements}
-                            style={styles.listItem}/>
-                    </ScrollView>
-                    <TouchableOpacity disabled={this.state.currentSelected === null} accessible={true}
-                                      accessibilityLabel="Réserver"
-                                      onPress={() => this.openModal()}
-                                      style={this.state.currentSelected !== null ? styles.button : [styles.button, styles.disabled]}>
-                        <Text style={styles.buttonText}>Valider</Text>
-                    </TouchableOpacity>
-                </View>
+                <ImageBackground source={require('../assets/images/background/background.png')}
+                                 style={styles.imageBG}>
+
+                    <Text accessible={true} style={styles.title}>Vos résultats</Text>
+                    <View style={styles.scrollViewContainer}>
+                        <ScrollView>
+                            <FlatList
+                                renderItem={this.renderItem}
+                                data={this.state.elements}
+                                style={styles.listItem}/>
+                        </ScrollView>
+                        <TouchableOpacity disabled={this.state.currentSelected === null} accessible={true}
+                                          accessibilityLabel="Réserver"
+                                          onPress={() => this.openModal()}
+                                          style={this.state.currentSelected !== null ? styles.button : [styles.button, styles.disabled]}>
+                            <Text style={styles.buttonText}>Valider</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground>
             </View>
         );
     }
@@ -131,6 +137,11 @@ const
             height: Window.height * 0.80
         },
 
+        imageBG: {
+            width: '100%',
+            height: '100%',
+            flex: 1
+        },
         container: {
             flex: 1,
             backgroundColor: 'rgb(54,63,70)',
@@ -200,7 +211,6 @@ const
             marginBottom: 10,
         }
     })
-BookingScreen
-    .navigationOptions = {
+BookingScreen.navigationOptions = {
     header: null,
 };

@@ -1,33 +1,37 @@
 import React from 'react';
 import {Component} from 'react';
-import {FlatList, View, StyleSheet} from 'react-native';
+import {FlatList, View, StyleSheet, Dimensions} from 'react-native';
 import {Colors, Navbar} from "../assets/styles/";
 
 export class Stepbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            elements: [1, 2, 3, 4, 5],
-            step: 2,
+            elements: [...Array(4).keys()],
+            step: this.props.step,
         };
+        console.log(this.state.elements)
     }
 
     renderItem = ({item, index}) => {
         if (this.state.elements.length !== index + 1) {
             return (
-                <View style={this.state.step >= index ? [styles.circle, styles.step] : styles.circle}>
-                    <View style={this.state.step > index ? [styles.bar, styles.step] : styles.bar}/>
+                <View
+                    style={this.state.step >= index ? [styles.circle, styles.step, {marginRight: Window.width / (this.state.elements.length)}] : [styles.circle, {marginRight: Window.width / (this.state.elements.length)}]}>
+                    <View
+                        style={this.state.step > index ? [styles.bar, styles.step, {width: Window.width / (this.state.elements.length)}] : [styles.bar, {width: Window.width / (this.state.elements.length)}]}/>
                 </View>
             )
         }
         return (
-            <View style={this.state.step >= index ? [styles.circle, styles.step] : styles.circle}/>
+            <View
+                style={this.state.step >= index ? [styles.circle, styles.step, {marginRight: Window.width / (this.state.elements.length)}] : [styles.circle, {marginRight: Window.width / (this.state.elements.length)}]}/>
         )
     }
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <FlatList
                     style={styles.navBar}
                     renderItem={this.renderItem}
@@ -39,7 +43,14 @@ export class Stepbar extends Component {
     }
 }
 
+let Window = Dimensions.get('window');
+
 const styles = StyleSheet.create({
+    container: {
+        paddingTop: 20,
+        paddingBottom: 20,
+        backgroundColor: Colors.default.primary,
+    },
     step: {
         backgroundColor: Colors.default.secondary,
     },
@@ -47,7 +58,7 @@ const styles = StyleSheet.create({
         ...Navbar.default.circle
     },
     bar: {
-        ...Navbar.default.bar
+        ...Navbar.default.bar,
     },
     navBar: {
         ...Navbar.default.navBar

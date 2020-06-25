@@ -12,6 +12,7 @@ import PaymentScreen from '../screens/PaymentScreen';
 import AddSuitcaseScreen from '../screens/AddSuitcaseScreen';
 import VoteScreen from '../screens/VoteScreen';
 import SuitcaseScreen from "../screens/SuitcaseScreen";
+import JoinSuitcaseScreen from "../screens/JoinSuitcaseScreen";
 
 
 const config = Platform.select({
@@ -92,8 +93,7 @@ ProfileStack.path = '';
 
 const AddSuitcaseStack = createStackNavigator(
     {
-        Settings: AddSuitcaseScreen,
-        Payment: PaymentScreen,
+        addSuitcase: AddSuitcaseScreen,
     },
     config
 );
@@ -143,10 +143,20 @@ const VoteStack = createStackNavigator(
 VoteStack.navigationOptions = {};
 
 VoteStack.path = '';
+const JoinSuitCaseStack = createStackNavigator(
+    {
+        JoinSuitCase: JoinSuitcaseScreen,
+    },
+    config
+);
 
+
+JoinSuitCaseStack.navigationOptions = {};
+
+JoinSuitCaseStack.path = '';
 const SuitcaseStack = createStackNavigator(
     {
-        Settings: SuitcaseScreen,
+        SuitCaseHome: SuitcaseScreen,
     },
     config
 );
@@ -173,14 +183,15 @@ const tabNavigator = createBottomTabNavigator({
     LoginStack,
     BookingStack,
     ProfileStack,
-    AddSuitcaseScreen,
+    AddSuitcaseStack,
     Suitcase: {
         screen: SuitcaseByIdScreen,
         path: 'suitcase/'
     },
     VoteStack,
     SuitcaseStack,
-    WebPageStack
+    WebPageStack,
+    JoinSuitCaseStack
 });
 
 
