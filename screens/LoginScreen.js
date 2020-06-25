@@ -17,11 +17,15 @@ const Form = t.form.Form
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            this: this,
+        };
+
     }
 
     handleSubmit = () => {
         const values = this._form.getValue();
-        CallApi.loginUser(values)
+        CallApi.loginUser(values, this.state.this)
     };
 
     render() {
@@ -55,7 +59,9 @@ export default class LoginScreen extends Component {
 
                         <FacebookButton/>
 
-                        <Text style={styles.noAccountText}>Je n'ai pas de compte</Text>
+                        <Text onPress={() => {
+                            this.props.navigation.navigate('Home');
+                        }} style={styles.noAccountText}>Je n'ai pas de compte</Text>
                     </ImageBackground>
                 </View>
             </ScrollView>

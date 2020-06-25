@@ -72,8 +72,7 @@ export class CallApi extends Component {
             });
     }
 
-    static loginUser(props) {
-        console.log(props, `${apiUrl}/api/login_check`)
+    static loginUser(props, screen) {
         axios.post(`${apiUrl}/api/login_check`, {
             "email": props.email,
             "password": props.password
@@ -84,7 +83,23 @@ export class CallApi extends Component {
                     LocalStorage.storeToken(response.data.token).then(r => {
                         return 200
                     })
-                    AsyncStorage.setItem('user', props.email)
+                    axios({
+                        method: 'POST',
+                        url: `${apiUrl}/api/getUser`,
+                        data: {
+                            email: props.email,
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${response.data.token}`,
+                            'Content-Type': 'application/json',
+                        }
+                    }).then(function (response) {
+                        console.log(response)
+                            AsyncStorage.setItem('user', response.data.email)
+                            AsyncStorage.setItem('userName', response.data.name)
+                            screen.props.navigation.navigate('SuitCaseHome');
+                        }
+                    )
                 }
             })
             .catch(function (error) {

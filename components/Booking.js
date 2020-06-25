@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     },
     title: {
         top: 40,
-        fontFamily: 'text-font',
+        fontFamily: 'title-font2',
         fontSize: 25,
         color: "#ffffff",
         left: 50,
