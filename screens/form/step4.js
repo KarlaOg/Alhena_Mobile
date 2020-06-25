@@ -51,6 +51,7 @@ class step4 extends Component {
     }
 
     render() {
+      const {language} = this.state;
         var radio_props = [
             {label: 'oui', value: true},
             {label: 'non', value: false},
@@ -63,19 +64,30 @@ class step4 extends Component {
                     <TouchableOpacity style={styles.arrow} onPress={() => this.props.back()}>
                         <Image source={require('../../assets/images/arrows/flecheb.png')}/>
                     </TouchableOpacity>
-                    <Stepbar max={5} step={0}/>
+                    <Stepbar max={5} step={4}/>
                     <View style={styles.main}>
                         <Image style={styles.logo} source={require('../../assets/images/robot/iconeContent.png')}/>
                         <Text style={styles.mainText}>La langue est-elle une {"\n"}barrière pour vous ?</Text>
                     </View>
-                    <View style={styles.checkbox}>
-                        <RadioForm
-                            radio_props={radio_props}
-                            initial={0}
-                            onPress={(value) => {
-                                this.setState({language: value})
-                            }}
-                        />
+                    <View style={styles.radioItem}>
+                        <TouchableOpacity onPress={() => {
+                            this.setState({language: true})
+                        }}>
+                            <View
+                                style={language === true ? [styles.radioImageContainer, styles.checked] : styles.radioImageContainer}>
+                                <Text style={styles.radioLabel}>Oui</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.radioItem}>
+                        <TouchableOpacity onPress={() => {
+                            this.setState({language: false})
+                        }}>
+                            <View
+                                style={language === false ? [styles.radioImageContainer, styles.checked] : styles.radioImageContainer}>
+                                <Text style={styles.radioLabel}>Non</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress={this.nextStep}
                                       style={styles.button}><Text>Suivant</Text></TouchableOpacity>
@@ -134,7 +146,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         paddingVertical: 15,
         borderRadius: 5,
-        marginTop: 50
+        marginTop: 70
     },
     checkbox: {
         display: 'flex',
@@ -149,5 +161,32 @@ const styles = StyleSheet.create({
         color: 'white',
         marginTop: 10,
         marginBottom: 10
-    }
+    },
+    radioRow: {
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+  },
+  radioImageContainer: {
+      marginTop:20,
+      backgroundColor: '#4A5258',
+      borderRadius: 4,
+      paddingVertical: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  radioImage: {},
+  radioLabel: {
+      marginTop: 5,
+      textAlign: 'center',
+      fontSize: 18,
+      color: 'white',
+      fontFamily: 'text-font',
+  },
+  radioButton: {
+      opacity: 0,
+  },
+  checked: {
+      backgroundColor: '#41FFE1',
+  },
+  radioItem: {}
 })

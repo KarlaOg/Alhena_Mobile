@@ -15,6 +15,7 @@ import {Colors, Spacing} from "../../assets/styles";
 import {FacebookButton} from "../../components/FacebookButton"
 import axios from 'axios'
 import {Stepbar} from "../../components/Stepbar";
+import Svg, { Circle, Rect } from 'react-native-svg';
 
 class step5 extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class step5 extends Component {
             weather: "",
             goal: "",
             language: "",
-            budget: 700
+            value: 300
         };
     }
 
@@ -51,7 +52,7 @@ class step5 extends Component {
                                 "activities": ["manger", "dormir"],
                                 "weather": this.props.getState().weather,
                                 "language": this.props.getState().language,
-                                "budget": 700,
+                                "budget": this.state.value,
                                 "goal": this.props.getState().goal
                             }
                         },
@@ -82,9 +83,20 @@ class step5 extends Component {
         back();
     }
 
+    sliderChange(value) {
+      if(value === 100){
+
+      }
+      else if(value === 500){
+
+      }
+      else{
+        this.setState({value: value})
+      }
+    }
+
     render() {
         const {currentStep, totalSteps, saveState} = this.state;
-        const [value, setValue] = useState(1)
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('../../assets/images/background/background.png')}
@@ -92,17 +104,29 @@ class step5 extends Component {
                     <TouchableOpacity style={styles.arrow} onPress={() => this.props.back()}>
                         <Image source={require('../../assets/images/arrows/flecheb.png')}/>
                     </TouchableOpacity>
-                    <Stepbar max={5} step={0}/>
+                    <Stepbar max={5} step={5}/>
                     <Text style={styles.mainText}>Quel est votre budget {"\n"}moyen par nuit ?</Text>
-                    <Slider
-                        value={this.state.value}
-                        onValueChange={value => this.setState({value})}
-                    />
-                    <Text>
-                        Value: {this.state.value}
-                    </Text>
+                    <View style={styles.blockImage}>
+                      <Image style={styles.image} source={require('../../assets/images/form/price.png')}></Image>
+                    </View>
+                    <View>
+                      <View style={styles.textPriceBlock}>
+                        <Text style={this.state.value <= 100 ?  [styles.textPriceOn] :  [styles.textPriceOff]}>{'<'} 100€</Text>
+                        <Text style={this.state.value > 100 && this.state.value < 500 ?  [styles.textPriceOn] :  [styles.textPriceOff, styles.priceHidden]}>{this.state.value}€</Text>
+                        <Text style={this.state.value >= 500 ?  [styles.textPriceOn] :  [styles.textPriceOff]}>{'>'} 500€</Text>
+                      </View>
+                      <View style={styles.point1}></View>
+                      <View style={styles.point2}></View>
+                      <Slider
+                          value={this.state.value}
+                          step={50}
+                          minimumValue={0}
+                          maximumValue={600}
+                          onValueChange={value => this.setState({value})}
+                      />
+                    </View>
                     <TouchableOpacity onPress={this.nextStep}
-                                      style={styles.button}><Text>Continuer</Text></TouchableOpacity>
+                                      style={styles.button}><Text>Terminer</Text></TouchableOpacity>
                 </ImageBackground>
             </View>
         )
@@ -133,6 +157,20 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 40,
         paddingHorizontal: 10
+    },
+    mainText: {
+      color: "white",
+      fontSize: 30,
+      fontWeight: 'bold'
+    },
+    blockImage: {
+      display: "flex",
+      flexDirection: 'row',
+      justifyContent: "center"
+    },  
+    image:{
+      marginTop: 20,
+      marginBottom: 35
     },
     text: {
         color: "#ffffff",
@@ -181,5 +219,41 @@ const styles = StyleSheet.create({
     copyImg: {
         width: 20,
         height: 20
+    },
+    textPriceBlock :{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: "space-between"
+    },
+    textPriceOn: {
+      color: 'white',
+      fontSize: 20
+    },
+    textPriceOff: {
+      color: '#55636E',
+      fontSize: 13
+    },
+    priceHidden: {
+      display: 'none'
+    },
+    point1:{
+      position: 'absolute',
+      zIndex: 1,
+      marginLeft: 35,
+      marginTop: 30,
+      width: 13,
+      height: 13,
+      borderRadius: 50,
+      backgroundColor: 'white'
+    },
+    point2:{
+      position: 'absolute',
+      zIndex: 1,
+      marginLeft: 280,
+      marginTop: 30,
+      width: 13,
+      height: 13,
+      borderRadius: 50,
+      backgroundColor: 'white'
     }
 })
