@@ -12,6 +12,7 @@ import PaymentScreen from '../screens/PaymentScreen';
 import AddSuitcaseScreen from '../screens/AddSuitcaseScreen';
 import VoteScreen from '../screens/VoteScreen';
 import SuitcaseScreen from "../screens/SuitcaseScreen";
+import FormScreen from "../screens/FormScreen";
 
 
 const config = Platform.select({
@@ -168,6 +169,30 @@ SuitcaseStack.navigationOptions = {
 
 SuitcaseStack.path = '';
 
+const FormStack = createStackNavigator(
+    {
+        Settings: FormScreen,
+    },
+    config
+);
+
+
+FormStack.navigationOptions = {
+    tabBarLabel: 'form',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-information-circle${focused ? '' : '-outline'}`
+                    : 'md-information-circle'
+            }
+        />
+    ),
+};
+
+FormStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
     LoginStack,
@@ -180,8 +205,11 @@ const tabNavigator = createBottomTabNavigator({
     },
     VoteStack,
     SuitcaseStack,
-    WebPageStack
+    WebPageStack,
+    FormStack
 });
 
 
 export default tabNavigator;
+
+
