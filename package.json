@@ -52,7 +52,7 @@
     "webpack-cli": "^3.3.9"
   },
   "devDependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-preset-expo": "^7.0.0",
     "jest-expo": "^35.0.0"
   },
